@@ -11,7 +11,8 @@
 
 data_coding <- function(data_set, year) {
 
-  if(year == 2011) {
+   data_set$josa_year <- year
+   if(year == 2011) {
     data_set$CITY_CD <- data_set$city_cd
     data_set$JIJUM_CD <- data_set$jijum_cd
     data_set$BOGUN_CD <- data_set$bogun_cd
@@ -40,23 +41,6 @@ data_coding <- function(data_set, year) {
     data_set$sod_02z2 <- data_set$sod_02z1
     data_set$josa_year <- 2013
   }
-
-  if (year == 2014) {
-    data_set$josa_year <- 2014
-  }
-
-  if (year == 2015) {
-    data_set$josa_year <- 2015
-  }
-
-  if (year == 2016) {
-    data_set$josa_year <- 2016
-  }
-
-  if (year == 2017) {
-    data_set$josa_year <- 2017
-  }
-
 
 
   ### 나이
