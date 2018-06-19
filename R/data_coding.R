@@ -45,6 +45,17 @@ data_coding <- function(data_set, year) {
     data_set$josa_year <- 2014
   }
 
+  if (year == 2015) {
+    data_set$josa_year <- 2015
+  }
+
+  if (year == 2016) {
+    data_set$josa_year <- 2016
+  }
+
+  if (year == 2017) {
+    data_set$josa_year <- 2017
+  }
 
 
 
@@ -125,6 +136,8 @@ data_coding <- function(data_set, year) {
   data_set$sm_a0100[data_set$sma_03z2 == 3] <- 0
   data_set$sm_a0100[data_set$sma_01z2 == 2] <- 0
 
+  ### 금연시도율
+
   data_set$sm_d0600 <- NA
   data_set$sm_d0600[data_set$smd_02z2==1] <- 1
   data_set$sm_d0600[data_set$smd_02z2 %in% c(2,3)] <- 0
@@ -142,7 +155,7 @@ data_coding <- function(data_set, year) {
     data_set$sm_e0200[data_set$smc_05z1 %in% c(1,2,3) & data_set$sma_01z2==1 & data_set$sma_03z2 == 3] <- 1
   }
 
-  if (year %in% 2014:2016){
+  if (year %in% 2014:2017){
     data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==2] <- 1
     data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==1 & data_set$sma_03z2 %in% c(1,2)] <- 0
     data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==1 & data_set$sma_03z2 == 3] <- 1
@@ -157,7 +170,7 @@ data_coding <- function(data_set, year) {
     data_set$sm_c0800[data_set$smc_05z1 %in% c(2,3)] <- 1
   }
 
-  if (year %in% 2014:2016) {
+  if (year %in% 2014:2017) {
     data_set$sm_c0800[data_set$smc_10z1 == 1] <- 1
     data_set$sm_c0800[data_set$smc_10z1 == 2] <- 0
     data_set$sm_c0800[data_set$smc_10z1 == 3] <- NA
@@ -202,16 +215,25 @@ data_coding <- function(data_set, year) {
 
   # 분모
   data_set$sf_a0300 <- NA
-  data_set$sf_a0300[data_set$josa_year %in% c(2011,2012,2013) & data_set$sfa_03z1 ==1] <- 1
-  data_set$sf_a0300[data_set$josa_year %in% c(2011,2012,2013) & data_set$sfa_03z1 ==2] <- 0
-  data_set$sf_a0300[data_set$josa_year %in% c(2014,2015,2016) & data_set$sfa_04z3 %in% c(2:5)] <- 1
-  data_set$sf_a0300[data_set$josa_year %in% c(2014,2015,2016) & data_set$sfa_04z3 ==1] <- 0
+
+  if (year %in% c(2011, 2012, 2013)) {
+    data_set$sf_a0300[data_set$sfa_03z1 ==1] <- 1
+    data_set$sf_a0300[data_set$sfa_03z1 ==2] <- 0
+  } else if (year %in% c(2014, 2015, 2016, 2017)) {
+    data_set$sf_a0300[data_set$sfa_04z3 %in% c(2:5)] <- 1
+    data_set$sf_a0300[data_set$sfa_04z3 ==1] <- 0
+  }
+
+
   # 분자
   data_set$sf_a0400 <- NA
-  data_set$sf_a0400[data_set$josa_year %in% c(2011,2012,2013) & data_set$sfa_04z2 ==5] <- 1
-  data_set$sf_a0400[data_set$josa_year %in% c(2011,2012,2013) & data_set$sfa_04z2 %in% c(1:4)] <- 0
-  data_set$sf_a0400[data_set$josa_year %in% c(2014,2015,2016) & data_set$sfa_04z3 %in% c(2:4)] <- 0
-  data_set$sf_a0400[data_set$josa_year %in% c(2014,2015,2016) & data_set$sfa_04z3 ==5] <- 1
+  if (year %in% 2011:2013) {
+    data_set$sf_a0400[data_set$sfa_04z2 ==5] <- 1
+    data_set$sf_a0400[data_set$sfa_04z2 %in% c(1:4)] <- 0
+  } else if (year %in% 2014:2017) {
+    data_set$sf_a0400[data_set$sfa_04z3 %in% c(2:4)] <- 0
+    data_set$sf_a0400[data_set$sfa_04z3 ==5] <- 1
+  }
 
 
   #### 음주운전경험률
@@ -328,26 +350,29 @@ data_coding <- function(data_set, year) {
   data_set$nu_b0600[data_set$tmp_nutrition %in% c(0,1,2)] <- 0
 
 
-  #### 영양표시독해율(14-16)
-  #분모: josa_year %in% c(2014,2015,2016)
 
-  # 영양표시 인지율
+  #분모: josa_year %in% c(2014,2015,2016)
   data_set$nu_c0200 <- NA
+  data_set$nu_c0300 <- NA
+  data_set$nu_c0400 <- NA
+  if (year %in% 2014:2017) {
+  # 영양표시 인지율
+
   data_set$nu_c0200[data_set$nuc_02z1 == 1] <- 1
   data_set$nu_c0200[data_set$nuc_02z1 == 2] <- 0
 
   # 영양표시 독해율
-  data_set$nu_c0300 <- NA
+
   data_set$nu_c0300[data_set$nu_c0200 == 1 & data_set$nuc_01z2 == 1] <- 1
   data_set$nu_c0300[data_set$nu_c0200 == 1 & data_set$nuc_01z2 == 2] <- 0
   data_set$nu_c0300[data_set$nu_c0200 == 0] <- 0
 
   # 영양표시 활용률
-  data_set$nu_c0400 <- NA
+
   data_set$nu_c0400[data_set$nu_c0200 == 1 & data_set$nu_c0300 == 1 & data_set$nuc_03z1 == 1] <- 1
   data_set$nu_c0400[data_set$nu_c0200 == 1 & data_set$nu_c0300 == 1 & data_set$nuc_03z1 == 2] <- 0
 
-
+  }
   #### 5일 이상 아침식사 실천율
 
 
@@ -569,7 +594,7 @@ data_coding <- function(data_set, year) {
     data_set$sr_a0100 <- 9
   }
 
-  if (year %in% 2012:2014) {
+  if (year %in% 2012:2017) {
     data_set$sr_a0100 <- NA
     data_set$sr_a0100[data_set$sra_01z1==1] <- 1
     data_set$sr_a0100[data_set$sra_01z1==2] <- 0
@@ -660,7 +685,7 @@ data_coding <- function(data_set, year) {
     data_set$ct_a0100[data_set$hma_01z1 %in% c(2:4)] <- 1
     data_set$ct_a0100[data_set$hma_01z1 == 1] <- 0
 
-  } else if (year %in% 2014:2016) {
+  } else if (year %in% 2014:2017) {
     data_set$ct_a0100[data_set$hma_01z2 == 1] <- 1
     data_set$ct_a0100[data_set$hma_01z2 == 2] <- 0
 
