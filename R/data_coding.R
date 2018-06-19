@@ -42,6 +42,9 @@ data_coding <- function(data_set, year) {
     data_set$josa_year <- 2013
   }
 
+  if (year == 2017) {
+     data_set$wt_house <- data_set$wt_h
+   }
 
   ### 나이
   data_set$age_10 <- NA
