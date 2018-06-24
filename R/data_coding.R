@@ -11,7 +11,7 @@
 
 data_coding <- function(data_set, year) {
 
-   data_set$josa_year <- as.character(year)
+   data_set$josa_year <- year
    if(year == 2011) {
     data_set$CITY_CD <- data_set$city_cd
     data_set$JIJUM_CD <- data_set$jijum_cd
