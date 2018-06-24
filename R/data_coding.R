@@ -11,7 +11,7 @@
 
 data_coding <- function(data_set, year) {
 
-   data_set$josa_year <- year
+   data_set$josa_year <- as.character(year)
    if(year == 2011) {
     data_set$CITY_CD <- data_set$city_cd
     data_set$JIJUM_CD <- data_set$jijum_cd
@@ -99,7 +99,7 @@ data_coding <- function(data_set, year) {
 
 
   ### 세대
-  if (year %in% c("2011","2013")) {
+  if (year %in% c(2011,2013)) {
     data_set$fma_19z1 <- data_set$fma_19z2 # family type
   }
   data_set$generation <- ifelse(data_set$fma_19z1 %in% 1:7, "1세대",
