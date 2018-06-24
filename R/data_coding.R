@@ -39,7 +39,6 @@ data_coding <- function(data_set, year) {
 
   if (year == 2013) {
     data_set$sod_02z2 <- data_set$sod_02z1
-    data_set$josa_year <- 2013
   }
 
   if (year == 2017) {
