@@ -45,28 +45,6 @@ data_coding <- function(data_set, year) {
      data_set$wt_house <- data_set$wt_h
   }
 
-  ###
-   data_set$district <- ifelse(data_set$dong_p %in% c("태화동","다운동"), "태화다운권",
-                        ifelse(data_set$dong_p %in% c("성안동","우정동", "약사동", "복산1동", "복산2동"),"성안복산권",
-                        ifelse(data_set$dong_p %in% c("병영1동","병영2동"), "병영권",
-                        ifelse(data_set$dong_p %in% c("중앙동", "학성동", "반구1동", "반구2동"), "중앙권",
-                        ifelse(data_set$dong_p %in% c("방어동", "일산동"), "방어일산권",
-                        ifelse(data_set$dong_p %in% c("화정동","대송동"), "화정대송권",
-                        ifelse(data_set$dong_p %in% c("전하1동", "전하2동"), "전하권",
-                        ifelse(data_set$dong_p %in% c("남목1동","남목2동","남목3동"), "남목권",
-                        ifelse(data_set$dong_p %in% c("신정1동","신정2동", "신정3동","신정4동","신정5동", "달동",
-                                        "삼산동","옥동","대현동", "수암동", "선암동", "야음장생포동"), "삼산권",
-                        ifelse(data_set$dong_p %in% c("무거동","삼호동"), "무거권",
-                        ifelse(data_set$dong_p %in% c("농소1동","농소2동","농소3동"),"농소권",
-                        ifelse(data_set$dong_p %in% c("강동동"), "강동권",
-                        ifelse(data_set$dong_p %in% c("염포동","양정동"), "염포양정권",
-                        ifelse(data_set$dong_p %in% c("효문동","송정동"), "효문권",
-                        ifelse(data_set$dong_p %in% c("범서읍"),"중부권",
-                        ifelse(data_set$dong_p %in% c("언양읍", "두동면","두서면","상북면","삼남면","삼동면"), "서부권",
-                        ifelse(data_set$dong_p %in% c("온산읍","온양읍","서생면","청량면","웅촌면"), "남부권", NA)))))))))))))))))
-
-
-
   ### 나이
   data_set$age_10 <- NA
   data_set$age_10[data_set$age>=19 & data_set$age<=29]<-"19-29"
