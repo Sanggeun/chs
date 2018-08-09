@@ -87,14 +87,56 @@ data_coding <- function(data_set, year) {
                   ifelse(data_set$soa_06z1 %in% c("7","8","9"), "5.기능단순노무직",
                   ifelse(data_set$soa_06z1 %in% c("10","11","12","13"),"6.기타",NA))))))
   ### 소득
-  #data_set$income <- ifelse(data_set$fma_24z1 == 1, "1.50만원미만",
-   #                  ifelse(data_set$fma_24z1 == 2, "2.50-100만원미만",
-    #                 ifelse(data_set$fma_24z1 == 3, "3.100-200만원미만",
-     #                ifelse(data_set$fma_24z1 == 4, "4.200-300만원미만",
-      #               ifelse(data_set$fma_24z1 == 5, "5.300-400만원미만",
-       #              ifelse(data_set$fma_24z1 == 6, "6.400-500만원미만",
-        #             ifelse(data_set$fma_24z1 == 7, "7.500-600만원미만",
-         #            ifelse(data_set$fma_24z1 == 8, "8.600만원이상", NA))))))))
+
+  if (year %in% 2011:2013) {
+    income_t <- ifelse(data_set$fma_12z1 == 1 & data_set$fma_13z1 >= 0 & data_set$fma_13z1 <= 77776,
+                       round(data_set$fma_13z1/12,1),
+                ifelse(data_set$fma_12z1 == 2 & data_set$fma_14z1 >= 0 & data_set$fma_14z1 <= 77776,
+                       round(data_set$fma_14z1,1),NA))
+
+    data_set$income <- ifelse(income_t >= 0 & income_t < 50, "1.50만원미만",
+                       ifelse(income_t < 100, "2.50-100만원미만",
+                       ifelse(income_t < 200, "3.100-200만원미만",
+                       ifelse(income_t < 300, "4.200-300만원미만",
+                       ifelse(income_t < 400, "5.300-400만원미만",
+                       ifelse(income_t < 500, "6.400-500만원미만",
+                       ifelse(income_t < 600, "7.500-600만원미만",
+                       ifelse(income_t >= 600, "8.600만원이상", NA))))))))
+
+    data_set$income_2 <- ifelse(income_t >= 0 & income_t < 100, "1.100만원미만",
+                         ifelse(income_t < 200, "2.100-200만원미만",
+                         ifelse(income_t < 300, "3.200-300만원미만",
+                         ifelse(income_t < 400, "4.300-400만원미만",
+                         ifelse(income_t >= 400, "5.400만원이상", NA)))))
+
+    data_set$income_3 <- ifelse(income_t >= 0 & income_t < 200, "200만원미만",
+                         ifelse(income_t < 400, "200-400만원미만",
+                         ifelse(income_t < 600, "400-600만원미만",
+                         ifelse(income_t >= 600, "600만원이상", NA))))
+  }
+
+  if (year %in% 2014:2017) {
+    data_set$income <- ifelse(data_set$fma_24z1 == 1, "1.50만원미만",
+                       ifelse(data_set$fma_24z1 == 2, "2.50-100만원미만",
+                       ifelse(data_set$fma_24z1 == 3, "3.100-200만원미만",
+                       ifelse(data_set$fma_24z1 == 4, "4.200-300만원미만",
+                       ifelse(data_set$fma_24z1 == 5, "5.300-400만원미만",
+                       ifelse(data_set$fma_24z1 == 6, "6.400-500만원미만",
+                       ifelse(data_set$fma_24z1 == 7, "7.500-600만원미만",
+                        ifelse(data_set$fma_24z1 == 8, "8.600만원이상", NA))))))))
+
+    data_set$income_2 <- ifelse(data_set$fma_24z1 %in% 1:2, "1.100만원미만",
+                         ifelse(data_set$fma_24z1 == 3, "2.100-200만원미만",
+                         ifelse(data_set$fma_24z1 == 4, "3.200-300만원미만",
+                         ifelse(data_set$fma_24z1 == 5, "4.300-400만원미만",
+                         ifelse(data_set$fma_24z1 %in% 6:8, "5.400만원이상", NA)))))
+
+    data_set$income_3 <- ifelse(data_set$fma_24z1 %in% 1:3, "200만원미만",
+                         ifelse(data_set$fma_24z1 %in% 4:5, "200-400만원미만",
+                         ifelse(data_set$fma_24z1 %in% 6:7, "400-600만원미만",
+                         ifelse(data_set$fma_24z1 == 8, "600만원이상", NA))))
+  }
+
 
 
 
