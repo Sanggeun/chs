@@ -21,7 +21,7 @@
 
 chs_c_rate <- function(data, by_var = "sex" , de_var = "sm_a0100", cluster = "JIJUM_CD",
                        strata=c("BOGUN_CD","dong_type","house_type"), index_subset = NULL,
-                       josa_year , index_year = 2011:2014,
+                       josa_year , index_year = 2011:2014, var_cat = 1,
                        weight="wt",digits=1) {
 
   # 지표별 조사연도(조사되지 않은 연도가 있음)
@@ -50,19 +50,35 @@ chs_c_rate <- function(data, by_var = "sex" , de_var = "sm_a0100", cluster = "JI
 
   if (NROW(data) >= 50) {
 
-    a <- svymean(~factor(target), chs_design_1, target==1, se=T, na.rm=T, deff=T, ci=T, keep.vars=T)
-    b <- margin.table(table(data[[de_var]]))
-    c <- table(data[[de_var]])
+    if (var_cat == 1) {
 
-    result <- c(
-      by_var = data[[by_var]][1],
-      total = b,
-      n = c[2],
-      crude_rate = formatC(round(coef(a)[2]*100,digits),digits,format = "f"),
-      low_CI = formatC(round(confint(a)[2]*100,digits),digits,format = "f"),
-      upper_cI = formatC(round(confint(a)[4]*100,digits),digits,format = "f")
+      a <- svymean(~factor(target), chs_design_1, target==1, se=T, na.rm=T, deff=T, ci=T, keep.vars=T)
+      b <- margin.table(table(data[[de_var]]))
+      c <- table(data[[de_var]])
 
-    )
+      result <- c(
+        by_var = data[[by_var]][1],
+        total = b,
+        n = c[2],
+        crude_rate = formatC(round(coef(a)[2]*100,digits),digits,format = "f"),
+        low_CI = formatC(round(confint(a)[2]*100,digits),digits,format = "f"),
+        upper_cI = formatC(round(confint(a)[4]*100,digits),digits,format = "f")
+
+      )
+    } else if (var_cat == 2) {
+      a <- svymean(~target, na.rm = TRUE, chs_design_1)
+      b <- margin.table(table(data[[de_var]]))
+
+      result <- c(
+        by_var = data[[by_var]][1],
+        total = b,
+        n = NA,
+        crude_rate = formatC(round(coef(a)[1],digits),digits,format = "f"),
+        low_CI = formatC(round(confint(a)[1],digits),digits,format = "f"),
+        upper_cI = formatC(round(confint(a)[2],digits),digits,format = "f")
+
+      )
+    }
 
   } else {
     result <- c(by_var = data[[by_var]][1],

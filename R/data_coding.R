@@ -164,6 +164,17 @@ data_coding <- function(data_set, year) {
   data_set$sm_a0100[data_set$sma_03z2 == 3] <- 0
   data_set$sm_a0100[data_set$sma_01z2 == 2] <- 0
 
+  #### 평생 흡연율
+
+  data_set$sm_a0200 <- ifelse(data_set$sma_01z2 == 1, 1,
+                              ifelse(data_set$sma_01z2 == 2, 0, NA))
+
+  #### 흡연시작연령
+  data_set$sm_a0300 <- ifelse(data_set$sma_01z2 == 1 &
+                                (data_set$sma_02z1>=0 & data_set$sma_02z1<=110) &
+                                (data_set$sma_02z1>=0 & data_set$sma_02z1<=data_set$age),
+                              data_set$sma_02z1, NA)
+
   ### 금연시도율
 
   data_set$sm_d0600 <- NA
