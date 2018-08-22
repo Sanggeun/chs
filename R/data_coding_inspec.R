@@ -11,9 +11,9 @@
 
 data_coding_inspec <- function(data_set, year) {
 
-data_set$josa_year <- year
+  data_set$josa_year <- year
 
-if(year == 2011) {
+  if(year == 2011) {
   data_set$CITY_CD <- data_set$city_cd
   data_set$JIJUM_CD <- data_set$jijum_cd
   data_set$BOGUN_CD <- data_set$bogun_cd
