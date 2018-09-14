@@ -404,7 +404,20 @@ data_coding <- function(data_set, year) {
     data_set$sm_d1100 <- ifelse(data_set$smd_08z1 %in% 1:2, 1,
                                 ifelse(data_set$smd_08z1 == 3, 0, NA))
   }
+  ### 17. 현재흡연자의 금연구역 내 흡연 경험률
+  if(year %in% c(2012, 2014, 2016)) {
+    data_set$sm_d1200 <- NA
+    data_set$sm_d1300 <- NA
+  }
 
+  if (year %in% c(2011, 2013, 2015, 2017)) {
+    #### 분모정의(현재흡연자 + 구체적 금연구역 인지자)
+    data_set$sm_d1200 <- ifelse(data_set$sm_a0100 == 1 & data_set$smd_08z1 == 1, 1, 0)
+
+    #### 분자정의
+    data_set$sm_d1300 <- ifelse(data_set$smd_09z1 %in% 1:2, 1,
+                                ifelse(data_set$smd_09z1 == 3, 0, NA))
+  }
 
 
   ### 음주
