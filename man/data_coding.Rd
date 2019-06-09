@@ -5,12 +5,14 @@
 \alias{data_coding}
 \title{coding chs index.}
 \usage{
-data_coding(data_set, year)
+data_coding(data_set, year, smoking = TRUE)
 }
 \arguments{
 \item{data_set}{raw data of community health survey.}
 
 \item{year}{the year investigated.}
+
+\item{smoking}{whether smoking section variables are coded}
 }
 \description{
 data_coding function will code health indicators using raw data of community health survey.

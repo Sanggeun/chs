@@ -5,9 +5,9 @@
 \title{Calculating crude rate.}
 \usage{
 chs_c_rate(data, by_var = "sex", de_var = "sm_a0100",
-  cluster = "JIJUM_CD", strata = c("BOGUN_CD", "dong_type", "house_type"),
-  index_subset = NULL, josa_year, index_year = 2011:2014, var_cat = 1,
-  weight = "wt", digits = 1)
+  cluster = "JIJUM_CD", strata = c("BOGUN_CD", "dong_type",
+  "house_type"), index_subset = NULL, josa_year,
+  index_year = 2011:2014, var_cat = 1, weight = "wt", digits = 1)
 }
 \arguments{
 \item{data}{data set.}
