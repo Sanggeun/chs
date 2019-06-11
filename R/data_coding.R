@@ -47,6 +47,10 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$wt_house <- data_set$wt_h
   }
 
+  if (year == 2018) {
+    data_set$wt_house <- data_set$wt_h
+  }
+
   ### 나이
   data_set$age_10 <- NA
   data_set$age_10[data_set$age>=19 & data_set$age<=29]<-"19-29"
