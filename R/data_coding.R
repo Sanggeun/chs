@@ -546,6 +546,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   if (year == 2018) {
     ## 일과 관련된 고강도 신체활동 시간
+    data_set$ph_a0500 <- 9
 
     data_set$pha_vig_d <- ifelse(data_set$pha_21z1 == 1 & data_set$pha_22z1 %in% 1:7 &
                                    data_set$pha_23z1 %in% 0:24 & data_set$pha_24z1 %in% 0:60,
@@ -931,7 +932,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$sr_a0100 <- 9
   }
 
-  if (year %in% 2012:2017) {
+  if (year %in% 2012:2018) {
     data_set$sr_a0100 <- NA
     data_set$sr_a0100[data_set$sra_01z1==1] <- 1
     data_set$sr_a0100[data_set$sra_01z1==2] <- 0
