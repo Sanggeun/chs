@@ -648,6 +648,53 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$ph_b0200[data_set$phb_01z1 %in% c(0:4) | (data_set$phb_01z1 %in% c(5:7) & data_set$ph_b0100 <=29)] <- 0
   data_set$ph_b0200[(data_set$phb_01z1 %in% c(5:7) & data_set$ph_b0100 >= 30)] <- 1
 
+  if (year %in% c(2011, 2013, 2015, 2017)) {
+    #### 유연성 운동 실천빈도
+    data_set$ph_a1001 <- ifelse(data_set$pha_10z1 == 1, 1,
+                                ifelse(data_set$pha_10z1 %in% 2:6, 0, NA))
+    data_set$ph_a1002 <- ifelse(data_set$pha_10z1 == 2, 1,
+                                ifelse(data_set$pha_10z1 %in% c(1,3:6), 0, NA))
+    data_set$ph_a1003 <- ifelse(data_set$pha_10z1 == 3, 1,
+                                ifelse(data_set$pha_10z1 %in% c(1,2,4:6), 0, NA))
+    data_set$ph_a1004 <- ifelse(data_set$pha_10z1 == 4, 1,
+                                ifelse(data_set$pha_10z1 %in% c(1:3,5,6), 0, NA))
+    data_set$ph_a1005 <- ifelse(data_set$pha_10z1 == 5, 1,
+                                ifelse(data_set$pha_10z1 %in% c(1:4,6), 0, NA))
+    data_set$ph_a1006 <- ifelse(data_set$pha_10z1 == 6, 1,
+                                ifelse(data_set$pha_10z1 %in% 1:5, 0, NA))
+
+    #### 근력운동 실천율
+    data_set$ph_a1100 <- ifelse(pha_11z1 >= 3, 1,
+                                ifelse(pha_11z1 %in% 1:2, 0, NA))
+
+
+    #### 주중 여가시간에 앉아서 보내는 시간
+    data_set$ph_a1201 <- ifelse(data_set$pha_12z1 == 1, 1,
+                                ifelse(data_set$pha_12z1 %in% 2:5, 0, NA))
+    data_set$ph_a1202 <- ifelse(data_set$pha_12z1 == 2, 1,
+                                ifelse(data_set$pha_12z1 %in% c(1, 3:5), 0, NA))
+    data_set$ph_a1203 <- ifelse(data_set$pha_12z1 == 3, 1,
+                                ifelse(data_set$pha_12z1 %in% c(1:2, 4:5), 0, NA))
+    data_set$ph_a1204 <- ifelse(data_set$pha_12z1 == 4, 1,
+                                ifelse(data_set$pha_12z1 %in% c(1:3, 5), 0, NA))
+    data_set$ph_a1205 <- ifelse(data_set$pha_12z1 == 5, 1,
+                                ifelse(data_set$pha_12z1 %in% 1:4, 0, NA))
+
+    #### 주말 여가시간에 앉아서 보내는 시간
+    data_set$ph_a1301 <- ifelse(data_set$pha_13z1 == 1, 1,
+                                ifelse(data_set$pha_13z1 %in% 2:5, 0, NA))
+    data_set$ph_a1302 <- ifelse(data_set$pha_13z1 == 2, 1,
+                                ifelse(data_set$pha_13z1 %in% c(1, 3:5), 0, NA))
+    data_set$ph_a1303 <- ifelse(data_set$pha_13z1 == 3, 1,
+                                ifelse(data_set$pha_13z1 %in% c(1:2, 4:5), 0, NA))
+    data_set$ph_a1304 <- ifelse(data_set$pha_13z1 == 4, 1,
+                                ifelse(data_set$pha_13z1 %in% c(1:3, 5), 0, NA))
+    data_set$ph_a1305 <- ifelse(data_set$pha_13z1 == 5, 1,
+                                ifelse(data_set$pha_13z1 %in% 1:4, 0, NA))
+
+  }
+
+  #### 지역내 운동시설 접근
 
 
   ### 영양
