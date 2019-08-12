@@ -694,8 +694,11 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   }
 
-  #### 지역내 운동시설 접근
-
+  if (year %in% c(2012, 2014, 2016, 2018)) {
+    #### 지역내 운동시설 접근
+    data_set$ph_c0100 <- ifelse(data_set$phc_01z1 %in% 1:2, 1,
+                                ifelse(data_set$phc_01z1 %in% 3:4, 0, NA))
+  }
 
   ### 영양
 
