@@ -1082,7 +1082,80 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$dong_p <- gsub("[[:punct:]]+", "_", gsub("[[:punct:]]$", "",
                                                     data_set$dong_p))
 
+  if (year %in% c(2011, 2013, 2015, 2017)) {
+  ### 사회물리적 환경
 
+  #### 지역의 사회 물리적 환경에 대한 긍정적 태도율
+
+  data_set$en_a0101 <- ifelse(data_set$ena_01a1 == 1, 1,
+                              ifelse(data_set$ena_01a1 == 2, 0, NA))
+  data_set$en_a0102 <- ifelse(data_set$ena_01b1 == 1, 1,
+                              ifelse(data_set$ena_01b1 == 2, 0, NA))
+  data_set$en_a0103 <- ifelse(data_set$ena_01c1 == 1, 1,
+                              ifelse(data_set$ena_01c1 == 2, 0, NA))
+  data_set$en_a0104 <- ifelse(data_set$ena_01d1 == 1, 1,
+                              ifelse(data_set$ena_01d1 == 2, 0, NA))
+  data_set$en_a0105 <- ifelse(data_set$ena_01e1 == 1, 1,
+                              ifelse(data_set$ena_01e1 == 2, 0, NA))
+  data_set$en_a0106 <- ifelse(data_set$ena_01f1 == 1, 1,
+                              ifelse(data_set$ena_01f1 == 2, 0, NA))
+  data_set$en_a0107 <- ifelse(data_set$ena_01g1 == 1, 1,
+                              ifelse(data_set$ena_01g1 == 2, 0, NA))
+
+  #### 사회적 연결망(친척)
+  data_set$en_b0101 <- ifelse(data_set$enb_01z1 == 1, 1,
+                              ifelse(data_set$enb_01z1 %in% 2:6, 0, NA))
+  data_set$en_b0102 <- ifelse(data_set$enb_01z1 == 2, 1,
+                              ifelse(data_set$enb_01z1 %in% c(1, 3:6), 0, NA))
+  data_set$en_b0103 <- ifelse(data_set$enb_01z1 == 3, 1,
+                              ifelse(data_set$enb_01z1 %in% c(1:2, 4:6), 0, NA))
+  data_set$en_b0104 <- ifelse(data_set$enb_01z1 == 4, 1,
+                              ifelse(data_set$enb_01z1 %in% c(1:3, 5:6), 0, NA))
+  data_set$en_b0105 <- ifelse(data_set$enb_01z1 == 5, 1,
+                              ifelse(data_set$enb_01z1 %in% c(1:4, 6), 0, NA))
+  data_set$en_b0106 <- ifelse(data_set$enb_01z1 == 6, 1,
+                              ifelse(data_set$enb_01z1 %in% 1:5, 0, NA))
+
+  #### 사회적 연결망(이웃)
+  data_set$en_b0201 <- ifelse(data_set$enb_02z1 == 1, 1,
+                              ifelse(data_set$enb_02z1 %in% 2:6, 0, NA))
+  data_set$en_b0202 <- ifelse(data_set$enb_02z1 == 2, 1,
+                              ifelse(data_set$enb_02z1 %in% c(1, 3:6), 0, NA))
+  data_set$en_b0203 <- ifelse(data_set$enb_02z1 == 3, 1,
+                              ifelse(data_set$enb_02z1 %in% c(1:2, 4:6), 0, NA))
+  data_set$en_b0204 <- ifelse(data_set$enb_02z1 == 4, 1,
+                              ifelse(data_set$enb_02z1 %in% c(1:3, 5:6), 0, NA))
+  data_set$en_b0205 <- ifelse(data_set$enb_02z1 == 5, 1,
+                              ifelse(data_set$enb_02z1 %in% c(1:4, 6), 0, NA))
+  data_set$en_b0206 <- ifelse(data_set$enb_02z1 == 6, 1,
+                              ifelse(data_set$enb_02z1 %in% 1:5, 0, NA))
+
+  #### 사회적 연결망(친구)
+  data_set$en_b0301 <- ifelse(data_set$enb_03z1 == 1, 1,
+                              ifelse(data_set$enb_03z1 %in% 2:6, 0, NA))
+  data_set$en_b0302 <- ifelse(data_set$enb_03z1 == 2, 1,
+                              ifelse(data_set$enb_03z1 %in% c(1, 3:6), 0, NA))
+  data_set$en_b0303 <- ifelse(data_set$enb_03z1 == 3, 1,
+                              ifelse(data_set$enb_03z1 %in% c(1:2, 4:6), 0, NA))
+  data_set$en_b0304 <- ifelse(data_set$enb_03z1 == 4, 1,
+                              ifelse(data_set$enb_03z1 %in% c(1:3, 5:6), 0, NA))
+  data_set$en_b0305 <- ifelse(data_set$enb_03z1 == 5, 1,
+                              ifelse(data_set$enb_03z1 %in% c(1:4, 6), 0, NA))
+  data_set$en_b0306 <- ifelse(data_set$enb_03z1 == 6, 1,
+                              ifelse(data_set$enb_03z1 %in% 1:5, 0, NA))
+
+  #### 사회적 참여율
+
+  data_set$en_b0401 <- ifelse(data_set$enb_04z1 == 1, 1,
+                              ifelse(data_set$enb_04z1 == 2, 0, NA))
+  data_set$en_b0402 <- ifelse(data_set$enb_05z1 == 1, 1,
+                              ifelse(data_set$enb_05z1 == 2, 0, NA))
+  data_set$en_b0403 <- ifelse(data_set$enb_06z1 == 1, 1,
+                              ifelse(data_set$enb_06z1 == 2, 0, NA))
+  data_set$en_b0404 <- ifelse(data_set$enb_07z1 == 1, 1,
+                              ifelse(data_set$enb_07z1 == 2, 0, NA))
+
+  }
 
   return(data_set)
 }
