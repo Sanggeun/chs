@@ -664,8 +664,8 @@ data_coding<- function(data_set, year, smoking = TRUE) {
                                 ifelse(data_set$pha_10z1 %in% 1:5, 0, NA))
 
     #### 근력운동 실천율
-    data_set$ph_a1100 <- ifelse(pha_11z1 >= 3, 1,
-                                ifelse(pha_11z1 %in% 1:2, 0, NA))
+    data_set$ph_a1100 <- ifelse(data_set$pha_11z1 >= 3, 1,
+                                ifelse(data_set$pha_11z1 %in% 1:2, 0, NA))
 
 
     #### 주중 여가시간에 앉아서 보내는 시간
