@@ -648,6 +648,29 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$ph_b0200[data_set$phb_01z1 %in% c(0:4) | (data_set$phb_01z1 %in% c(5:7) & data_set$ph_b0100 <=29)] <- 0
   data_set$ph_b0200[(data_set$phb_01z1 %in% c(5:7) & data_set$ph_b0100 >= 30)] <- 1
 
+  data_set$ph_a1001 <- NA
+  data_set$ph_a1002 <- NA
+  data_set$ph_a1003 <- NA
+  data_set$ph_a1004 <- NA
+  data_set$ph_a1005 <- NA
+  data_set$ph_a1006 <- NA
+
+  data_set$ph_a1100 <- NA
+
+  data_set$ph_a1201 <- NA
+  data_set$ph_a1202 <- NA
+  data_set$ph_a1203 <- NA
+  data_set$ph_a1204 <- NA
+  data_set$ph_a1205 <- NA
+
+  data_set$ph_a1301 <- NA
+  data_set$ph_a1302 <- NA
+  data_set$ph_a1303 <- NA
+  data_set$ph_a1304 <- NA
+  data_set$ph_a1305 <- NA
+
+  data_set$ph_c0100 <- NA
+
   if (year %in% c(2011, 2013, 2015, 2017)) {
     #### 유연성 운동 실천빈도
     data_set$ph_a1001 <- ifelse(data_set$pha_10z1 == 1, 1,
@@ -1079,8 +1102,41 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   }
 
-  data_set$dong_p <- gsub("[[:punct:]]+", "_", gsub("[[:punct:]]$", "",
-                                                    data_set$dong_p))
+  data_set$en_a0101 <- NA
+  data_set$en_a0102 <- NA
+  data_set$en_a0103 <- NA
+  data_set$en_a0104 <- NA
+  data_set$en_a0105 <- NA
+  data_set$en_a0106 <- NA
+  data_set$en_a0107 <- NA
+
+  data_set$en_b0101 <- NA
+  data_set$en_b0102 <- NA
+  data_set$en_b0103 <- NA
+  data_set$en_b0104 <- NA
+  data_set$en_b0105 <- NA
+  data_set$en_b0106 <- NA
+
+  data_set$en_b0201 <- NA
+  data_set$en_b0202 <- NA
+  data_set$en_b0203 <- NA
+  data_set$en_b0204 <- NA
+  data_set$en_b0205 <- NA
+  data_set$en_b0206 <- NA
+
+  data_set$en_b0301 <- NA
+  data_set$en_b0302 <- NA
+  data_set$en_b0303 <- NA
+  data_set$en_b0304 <- NA
+  data_set$en_b0305 <- NA
+  data_set$en_b0306 <- NA
+
+  data_set$en_b0301 <- NA
+  data_set$en_b0302 <- NA
+  data_set$en_b0303 <- NA
+  data_set$en_b0304 <- NA
+  data_set$en_b0305 <- NA
+  data_set$en_b0306 <- NA
 
   if (year %in% c(2011, 2013, 2015, 2017)) {
   ### 사회물리적 환경
@@ -1156,6 +1212,9 @@ data_coding<- function(data_set, year, smoking = TRUE) {
                               ifelse(data_set$enb_07z1 == 2, 0, NA))
 
   }
+
+  data_set$dong_p <- gsub("[[:punct:]]+", "_", gsub("[[:punct:]]$", "",
+                                                    data_set$dong_p))
 
   return(data_set)
 }
