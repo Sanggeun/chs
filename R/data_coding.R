@@ -656,6 +656,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$ph_a1004 <- NA
   data_set$ph_a1005 <- NA
   data_set$ph_a1006 <- NA
+  data_set$ph_a1009 <- NA
 
   data_set$ph_a1100 <- NA
 
