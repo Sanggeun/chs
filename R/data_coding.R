@@ -546,6 +546,9 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   
   data_set$pha_aerobic <- NA
   data_set$phc_sedent <- NA
+  data_set$pha_work <- NA
+  data_set$pha_walk <- NA
+  data_set$pha_lei <- NA
   
   if (year == 2018) {
     ## 일과 관련된 고강도 신체활동 시간
@@ -619,6 +622,21 @@ data_coding<- function(data_set, year, smoking = TRUE) {
         (data_set$pha_37z1 == 1 & data_set$pha_38z1 %in% 1:7 & !is.na(data_set$pha_mod2) |
            data_set$pha_37z1 == 2),
       (data_set$pha_mod_t >= 150 | data_set$pha_vig_t >= 75 | data_set$pha_vig_mod_t >= 150),NA)
+      
+    # 일과 관련된 신체활동 시간
+    data_set$pha_work <- ifelse(!is.na(data_set$pha_vig) & !is.na(data_set$pha_mod),
+    data_set$pha_vig*2 + data_set$pha_mod,
+    ifelse(!is.na(data_set$pha_vig), data_set$vig*2,
+    ifelse(!is.na(data_set$pha_mod), data_set$mod,0)))
+    
+    
+    # 여가 관련 신체활동 시간
+    data_set$pha_lei <- ifelse(!is.na(data_set$pha_vig2) & !is.na(data_set$pha_mod2),
+    data_set$pha_vig2*2 + data_set$pha_mod2,
+    ifelse(!is.na(data_set$pha_vig2), data_set$vig2*2,
+    ifelse(!is.na(data_set$pha_mod2), data_set$mod2,0)))
+    
+    
 
     # 앉아서 보내는 시간
 
