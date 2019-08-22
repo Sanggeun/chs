@@ -502,7 +502,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   ### 운동 및 신체활동
 
-
+  data_set$ph_a0500 <- NA
   if (year %in% 2011:2017) {
 
     #### 중등도이상 신체활동 실천율
@@ -543,10 +543,12 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$ph_a0500[data_set$ph_a0200==0 & data_set$ph_a0400==0] <- 0
 
   }
-
+  
+  data_set$pha_aerobic <- NA
+  data_set$phc_sedent <- NA
+  
   if (year == 2018) {
     ## 일과 관련된 고강도 신체활동 시간
-    data_set$ph_a0500 <- 9
 
     data_set$pha_vig_d <- ifelse(data_set$pha_21z1 == 1 & data_set$pha_22z1 %in% 1:7 &
                                    data_set$pha_23z1 %in% 0:24 & data_set$pha_24z1 %in% 0:60,
