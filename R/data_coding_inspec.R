@@ -720,7 +720,8 @@ data_coding_inspec <- function(data_set, year) {
 
     data_set$ph_a1009 <- ifelse(data_set$pha_10z1 %in% 2:6, 1,
                                 ifelse(data_set$pha_10z1 == 1, 0, NA))
-
+   }
+    if(year %in% c(2011, 2013, 2015, 2017)) {
     #### 근력운동 실천율
     data_set$ph_a1100 <- ifelse(data_set$pha_11z1 >= 3, 1,
                                 ifelse(data_set$pha_11z1 %in% 1:2, 0, NA))
