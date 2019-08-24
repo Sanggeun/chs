@@ -46,7 +46,8 @@ data_coding_inspec <- function(data_set, year) {
     data_set$wt_house <- data_set$wt_h
   }
 
-  if (year ==2019) {
+  if (year == 2019) {
+    data_set$dong_p <- data_set$DONG_P
     data_set$wt_house <- data_set$wt_h
   }
 
