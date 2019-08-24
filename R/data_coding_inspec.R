@@ -154,8 +154,15 @@ data_coding_inspec <- function(data_set, year) {
                                        ifelse(data_set$fma_19z1 %in% 17:19, "3세대",NA)))
 
   ### 동읍면
+  if (year %in% 2011:2018) {
   data_set$town <- ifelse(data_set$dong_type == 1, "1.동",
                           ifelse(data_set$dong_type == 2, "2.읍면", NA))
+  }
+
+  if (year == 2019) {
+    data_set$town <- ifelse(data_set$DONG_TYPE == 1, "1.동",
+                            ifelse(data_set$DONG_TYPE == 2, "2.읍면", NA))
+  }
 
   # 건강행태
 
