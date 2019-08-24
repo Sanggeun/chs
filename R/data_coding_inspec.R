@@ -179,6 +179,7 @@ data_coding_inspec <- function(data_set, year) {
 
     ###2. 평생 흡연율
 
+    if (year %in% 2011:2018) {
     data_set$sm_a0200 <- ifelse(data_set$sma_01z2 == 1, 1,
                                 ifelse(data_set$sma_01z2 == 2, 0, NA))
 
@@ -188,6 +189,7 @@ data_coding_inspec <- function(data_set, year) {
                                   (data_set$sma_02z1>=0 & data_set$sma_02z1<=data_set$age),
                                 data_set$sma_02z1, NA)
 
+
     ### 4. 매일 흡연자의 하루 평균 흡연량
 
     #### 분모정의(매일 흡연자)
@@ -195,6 +197,8 @@ data_coding_inspec <- function(data_set, year) {
                                 ifelse(data_set$sma_03z2 == 1, 1,
                                        ifelse(data_set$sma_03z2 %in% c(2,3),0,NA)),
                                 ifelse(data_set$sma_01z2 == 2, 0, NA))
+
+    }
     #### 분자정의(흡연량)
     data_set$sm_b0100 <- ifelse(data_set$smb_01z1 >= 1 & data_set$smb_01z1 <= 776,
                                 data_set$smb_01z1, NA)
