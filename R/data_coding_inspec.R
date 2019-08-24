@@ -409,8 +409,10 @@ data_coding_inspec <- function(data_set, year) {
 
     ### 14, 15 연간 금연교육 경험률, 현재 흡연자의 금연교육 경험률
 
+    if (year %in% 2011:2018) {
     data_set$sm_d1000 <- ifelse(data_set$smd_07z1 == 1, 1,
                                 ifelse(data_set$smd_07z1 == 2, 2, NA))
+    }
 
     ### 16. 금연구역 인지율
     if(year %in% c(2012, 2014, 2016)) {
