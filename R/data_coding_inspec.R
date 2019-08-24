@@ -928,6 +928,66 @@ data_coding_inspec <- function(data_set, year) {
   data_set$mt_b0100[data_set$mtb_01z1 == 2] <- 0
 
 
+  #### 우울증상 유병률
+
+  data_set$tmp_mtb_07a1 <- ifelse(data_set$mtb_07a1 == 1, 0,
+                           ifelse(data_set$mtb_07a1 == 2, 1,
+                           ifelse(data_set$mtb_07a1 == 3, 2,
+                           ifelse(data_set$mtb_07a1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07b1 <- ifelse(data_set$mtb_07b1 == 1, 0,
+                                  ifelse(data_set$mtb_07b1 == 2, 1,
+                                         ifelse(data_set$mtb_07b1 == 3, 2,
+                                                ifelse(data_set$mtb_07b1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07c1 <- ifelse(data_set$mtb_07c1 == 1, 0,
+                                  ifelse(data_set$mtb_07c1 == 2, 1,
+                                         ifelse(data_set$mtb_07c1 == 3, 2,
+                                                ifelse(data_set$mtb_07c1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07d1 <- ifelse(data_set$mtb_07d1 == 1, 0,
+                                  ifelse(data_set$mtb_07d1 == 2, 1,
+                                         ifelse(data_set$mtb_07d1 == 3, 2,
+                                                ifelse(data_set$mtb_07d1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07e1 <- ifelse(data_set$mtb_07e1 == 1, 0,
+                                  ifelse(data_set$mtb_07e1 == 2, 1,
+                                         ifelse(data_set$mtb_07e1 == 3, 2,
+                                                ifelse(data_set$mtb_07e1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07f1 <- ifelse(data_set$mtb_07f1 == 1, 0,
+                                  ifelse(data_set$mtb_07f1 == 2, 1,
+                                         ifelse(data_set$mtb_07f1 == 3, 2,
+                                                ifelse(data_set$mtb_07f1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07g1 <- ifelse(data_set$mtb_07g1 == 1, 0,
+                                  ifelse(data_set$mtb_07g1 == 2, 1,
+                                         ifelse(data_set$mtb_07g1 == 3, 2,
+                                                ifelse(data_set$mtb_07g1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07h1 <- ifelse(data_set$mtb_07h1 == 1, 0,
+                                  ifelse(data_set$mtb_07h1 == 2, 1,
+                                         ifelse(data_set$mtb_07h1 == 3, 2,
+                                                ifelse(data_set$mtb_07h1 == 4, 3, NA))))
+
+  data_set$tmp_mtb_07i1 <- ifelse(data_set$mtb_07i1 == 1, 0,
+                                  ifelse(data_set$mtb_07i1 == 2, 1,
+                                         ifelse(data_set$mtb_07i1 == 3, 2,
+                                                ifelse(data_set$mtb_07i1 == 4, 3, NA))))
+
+  data_set$tmp_mt_b0500 <- data_set$tmp_mtb07a1 + data_set$tmp_mtb07b1 +
+    data_set$tmp_mtb07c1 + data_set$tmp_mtb07d1 + data_set$tmp_mtb07e1 +
+    data_set$tmp_mtb07f1 + data_set$tmp_mtb07g1 + data_set$tmp_mtb07h1 + data_set$tmp_mtb07i1
+
+  data_set$mt_b0500 <- ifelse(data_set$tmp_mt_b0500 >= 0 & data_set$tmp_mt_b0500 <= 9, 0,
+                        ifelse(data_set$tmp_mt_b0500 >= 10 & data_set$tmp_mt_b0500 <= 27, 1, NA))
+
+  #### 자살생각률
+
+  if (year == 2019) {
+    data_set$mt_d0100 <- ifelse(data_set$mtd_01z1 == 1, 1,
+                                ifelse(data_set$mtd_01z1 == 2, 0, 1))
+  }
 
 
   ### 예방접종
