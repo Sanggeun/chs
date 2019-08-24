@@ -14,6 +14,9 @@ dataread_chs_raw <- function(year, filename, data3 = FALSE) {
     data_d2 <- readxl::read_excel(filename, sheet = "data2"); data_d2 <- data_d2[-1,]
 
     # 13년부터는 by='id' 제외
+    if (!"id" %in% colnames(data_d1)) {
+        data_d1$id <- 1:nrow(data_d1)
+    }
     data_d2$id <- data_d1$id
     data_all <- merge(data_d1, data_d2, by='id')
 

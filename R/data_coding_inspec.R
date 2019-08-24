@@ -42,10 +42,13 @@ data_coding_inspec <- function(data_set, year) {
     data_set$sod_02z2 <- data_set$sod_02z1
   }
 
-  if (year %in% 2017:2019) {
+  if (year %in% 2017:2018) {
     data_set$wt_house <- data_set$wt_h
   }
 
+  if (year ==2019) {
+    data_set$wt_house <- data_set$wt_h
+  }
 
   ### 나이
   data_set$age_10 <- NA
