@@ -930,7 +930,7 @@ data_coding_inspec <- function(data_set, year) {
 
   #### 우울증상 유병률
 
-  if (year == 2017:2019) {
+  if (year %in% 2017:2019) {
 
   data_set$tmp_mtb_07a1 <- ifelse(data_set$mtb_07a1 == 1, 0,
                            ifelse(data_set$mtb_07a1 == 2, 1,
