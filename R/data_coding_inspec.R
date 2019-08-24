@@ -167,7 +167,7 @@ data_coding_inspec <- function(data_set, year) {
   # 건강행태
 
   ##  흡연
-  if (smoking == TRUE) {
+
 
     ###1. 현재 흡연율
 
@@ -433,7 +433,7 @@ data_coding_inspec <- function(data_set, year) {
                                   ifelse(data_set$smd_09z1 == 3, 0, NA))
     }
 
-  }
+
 
   ### 음주
 
