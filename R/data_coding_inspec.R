@@ -1098,7 +1098,7 @@ data_coding_inspec <- function(data_set, year) {
 
   if (year == 2019) {
     data_set$il_a0800 <- ifelse(data_set$il_a0701 == 1 | data_set$il_a0703 == 1, 1,
-                                ifelse(data_set$il_a0701 == 0 & data_set$il_a0703 == 0, 0, NA))
+                                ifelse(data_set$il_0200 == 1, 0, NA))
   }
 
   #### 당뇨병 의사진단경험률(30세이상)
