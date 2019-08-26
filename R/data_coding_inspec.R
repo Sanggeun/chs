@@ -1097,7 +1097,8 @@ data_coding_inspec <- function(data_set, year) {
   }
 
   if (year == 2019) {
-    data_set$il_a0800 <- ifelse(data_set$il_a0701 == 1 | data_set$il_a0703 == 1, 1,
+    data_set$il_a0800 <- ifelse(data_set$il_a0200 == 1 &
+                                  (data_set$il_a0701 == 1 | data_set$il_a0703 == 1), 1,
                                 ifelse(data_set$il_0200 == 1, 0, NA))
   }
 
