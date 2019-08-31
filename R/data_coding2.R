@@ -121,8 +121,8 @@ data_coding2 <- function(data, year) {
 
   ### 동읍면
   if (year %in% 2011:2018) {
-    data$town <- ifelse(data$town_t %in% 1, "1.동",
-                            ifelse(data$town_t %in% 2, "2.읍면", NA))
+    data$town <- ifelse(data$town_t == 1, "1.동",
+                            ifelse(data$town_t == 2, "2.읍면", NA))
   }
 
   if (year == 2019) {
