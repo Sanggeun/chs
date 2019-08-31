@@ -280,6 +280,7 @@ data_coding2 <- function(data, year) {
   #### 비만율
 
   # 저체중
+  data$ob_a0101 <- data$oba_03z1/(data_set$oba_02z1/100)^2
 
   data$ob_a0201 <- NA
   data$ob_a0201 <- ifelse(data$ob_a0101 >= 0 & data$ob_a0101 < 10,NA,
