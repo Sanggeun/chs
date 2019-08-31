@@ -50,12 +50,12 @@ data_coding2 <- function(data, year) {
                                                     (data$sob_01z1 =="8" & data$sob_02z1 %in% c("1","2","3","4") ),"5.대학교이상",NA   ) ))))
 
   ### 직업
-  data$job <- ifelse(data$soa_05z1 %in% c("1","2"),"1.전문행정관리",
-                     ifelse(data$soa_05z1 == "3", "2.사무직",
-                            ifelse(data$soa_05z1 %in% c("4","5"), "3.판매서비스직",
-                                   ifelse(data$soa_05z1 == "6", "4.농림어업",
-                                          ifelse(data$soa_05z1 %in% c("7","8","9"), "5.기능단순노무직",
-                                                 ifelse(data$soa_05z1 %in% c("10","11","12","13"),"6.기타",NA))))))
+  data$job <- ifelse(data$soa_06z1 %in% c("1","2"),"1.전문행정관리",
+                     ifelse(data$soa_06z1 == "3", "2.사무직",
+                            ifelse(data$soa_06z1 %in% c("4","5"), "3.판매서비스직",
+                                   ifelse(data$soa_06z1 == "6", "4.농림어업",
+                                          ifelse(data$soa_06z1 %in% c("7","8","9"), "5.기능단순노무직",
+                                                 ifelse(data$soa_06z1 %in% c("10","11","12","13"),"6.기타",NA))))))
   ### 소득
 
   if (year %in% c(2011:2013, 2018)) {
