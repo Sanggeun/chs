@@ -16,9 +16,6 @@ data_coding2 <- function(data, year) {
 
   ## 공통영역
 
-  data$town_t <- data$dong_type
-  data$apt_t <- data$house_type
-
   ### 나이
   data$age_10 <- NA
   data$age_10[data$age>=19 & data$age<=29]<-"19-29"
