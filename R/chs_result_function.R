@@ -145,7 +145,7 @@ chs_c_mean <- function(data, by_var = "sex" , de_var = "sm_a0100", cluster = "JI
 
     if (var_cat == 1) {
 
-      a <- svymean(target, chs_design_1)
+      a <- svymean(~target, chs_design_1)
 
       result <- c(
         by_var = data[[by_var]][1],
