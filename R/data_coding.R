@@ -533,7 +533,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$ph_a0300[is.na(data_set$pha_08z1) & (data_set$pha_09z1 %in% c(0:60))] <- data_set$pha_09z1[is.na(data_set$pha_08z1) & (data_set$pha_09z1 %in% c(0:60))]
 
     data_set$ph_a0400 <- NA
-    data_set$ph_a0400[data_set$pha_07z1 %in% c(0:4) | (data_set$pha_04z1 %in% c(5:7) & data_set$ph_a0300 <=29)] <- 0
+    data_set$ph_a0400[data_set$pha_07z1 %in% c(0:4) | (data_set$pha_07z1 %in% c(5:7) & data_set$ph_a0300 <=29)] <- 0
     data_set$ph_a0400[(data_set$pha_07z1 %in% c(5:7) & data_set$ph_a0300 >= 30)] <- 1
 
     # 중등도이상 신체활동 실천율
@@ -541,6 +541,50 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$ph_a0500 <- NA
     data_set$ph_a0500[data_set$ph_a0200==1 | data_set$ph_a0400==1] <- 1
     data_set$ph_a0500[data_set$ph_a0200==0 & data_set$ph_a0400==0] <- 0
+
+    # 중등도 이상 신체활동 실천율 2
+    ## 주간 격렬한 신체활동 시간
+
+    data_set$ph_a0501 <- NA
+    data_set$ph_a0501 <- data_set$pha_04z1*data_set$ph_a0100
+
+    ## 주간 중등도 신체활동 시간
+
+    data_set$ph_a0502 <- NA
+    data_set$ph_a0502 <- data_set$pha_07z1*data_set$ph_a0300
+
+    ## 주간 걷기 시간
+
+    data_set$phb_03z1 <- as.numeric(data_set$phb_03z1)
+    data_set$phb_02z1 <- as.numeric(data_set$phb_02z1)
+
+    data_set$ph_b0100 <- NA
+    data_set$ph_b0100[is.na(data_set$phb_03z1) & (data_set$phb_02z1 %in% c(0:24))] <-
+      data_set$phb_02z1[is.na(data_set$phb_03z1) & (data_set$phb_02z1 %in% c(0:24))]*60
+    data_set$ph_b0100[data_set$phb_02z1 %in% c(0:24) & data_set$phb_03z1 %in% c(0:60)] <-
+      data_set$phb_02z1[data_set$phb_02z1 %in% c(0:24) & data_set$phb_03z1 %in% c(0:60)]*60 + data_set$phb_03z1[data_set$phb_02z1 %in% c(0:24) & data_set$phb_03z1 %in% c(0:60)]
+    data_set$ph_b0100[is.na(data_set$phb_02z1) & (data_set$phb_03z1 %in% c(0:60))] <- data_set$phb_03z1[is.na(data_set$phb_02z1) & (data_set$phb_03z1 %in% c(0:60))]
+
+    data_set$ph_a0503 <- NA
+    data_set$ph_a0503 <- data_set$phb_01z1*data_set$ph_b0100
+
+    ## 중등도 이상 신체활동 실천율 2
+
+    data_set$ph_a0509 <- ifelse(!is.na(data_set$ph_a0501) & !is.na(data_set$ph_a0502) & !is.na(data_set$ph_a0503),
+                                data_set$ph_a0501*2 + data_set$ph_a0502 + data_set$ph_a0503,
+                         ifelse(!is.na(data_set$ph_a0501) & !is.na(data_set$ph_a0502) & is.na(data_set$ph_a0503),
+                                data_set$ph_a0501*2 + data_set$ph_a0502,
+                         ifelse(!is.na(data_set$ph_a0501) & is.na(data_set$ph_a0502) & !is.na(data_set$ph_a0503),
+                                data_set$ph_a0501*2 + data_set$ph_a0503,
+                         ifelse(is.na(data_set$ph_a0501) & !is.na(data_set$ph_a0502) & !is.na(data_set$ph_a0503),
+                                data_set$ph_a0502 + data_set$ph_a0503,
+                         ifelse(!is.na(data_set$ph_a0501) & is.na(data_set$ph_a0502) & is.na(data_set$ph_a0503),
+                                data_set$ph_a0501*2,
+                         ifelse(is.na(data_set$ph_a0501) & !is.na(data_set$ph_a0502) & is.na(data_set$ph_a0503),
+                                data_set$ph_a0502,
+                         ifelse(is.na(data_set$ph_a0501) & is.na(data_set$ph_a0502) & !is.na(data_set$ph_a0503),
+                                data_set$ph_a0503,     data_set$ph_a0501*2 + data_set$ph_a0502 + data_set$ph_a0503
+                                )))))))
 
   }
 
@@ -629,8 +673,8 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$pha_vig*2 + data_set$pha_mod,
       ifelse(!is.na(data_set$pha_vig), data_set$pha_vig*2,
       ifelse(!is.na(data_set$pha_mod), data_set$pha_mod,0)))
-      
-      
+
+
       # 여가 관련 신체활동 시간
       data_set$pha_lei <- ifelse(!is.na(data_set$pha_vig2) & !is.na(data_set$pha_mod2),
       data_set$pha_vig2*2 + data_set$pha_mod2,
