@@ -1,4 +1,4 @@
-#' coding chs index.
+두#' coding chs index.
 #'
 #' data_coding function will code health indicators using raw data of community health survey.
 #'
@@ -1207,6 +1207,11 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$en_b0304 <- NA
   data_set$en_b0305 <- NA
   data_set$en_b0306 <- NA
+  
+  data_set$en_b0401 <- NA
+  data_set$en_b0402 <- NA
+  data_set$en_b0403 <- NA
+  data_set$en_b0404 <- NA
 
   if (year %in% c(2011, 2013, 2015, 2017)) {
   ### 사회물리적 환경
