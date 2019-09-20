@@ -503,6 +503,8 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   ### 운동 및 신체활동
 
   data_set$ph_a0500 <- NA
+  data_set$ph_a0500_2 <- NA
+
   if (year %in% 2011:2017) {
 
     #### 중등도이상 신체활동 실천율
@@ -586,6 +588,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
                                 data_set$ph_a0503,     data_set$ph_a0501*2 + data_set$ph_a0502 + data_set$ph_a0503
                                 )))))))
 
+    data_set$ph_a0500_2 <- ifelse(data_set$ph_a0509 >= 150, 1, 0)
   }
 
   data_set$pha_aerobic <- NA
