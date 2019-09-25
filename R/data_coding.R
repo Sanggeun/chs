@@ -504,6 +504,8 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   data_set$ph_a0500 <- NA
   data_set$ph_a0500_2 <- NA
+  data_set$ph_a0500_3 <- NA
+
 
   if (year %in% 2011:2017) {
 
@@ -545,6 +547,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$ph_a0500[data_set$ph_a0200==0 & data_set$ph_a0400==0] <- 0
 
     # 중등도 이상 신체활동 실천율 2
+
     ## 주간 격렬한 신체활동 시간
 
     data_set$ph_a0501 <- NA
@@ -713,6 +716,13 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$ph_b0200 <- NA
   data_set$ph_b0200[data_set$phb_01z1 %in% c(0:4) | (data_set$phb_01z1 %in% c(5:7) & data_set$ph_b0100 <=29)] <- 0
   data_set$ph_b0200[(data_set$phb_01z1 %in% c(5:7) & data_set$ph_b0100 >= 30)] <- 1
+
+  # 중등도 이상 신체활동 실천율 3
+
+  if (year %in% c(2011:2017, 2019)) {
+    data_set$ph_a0500_3 <- ifelse(data_set$ph_a0500 == 1 | data_set$ph_b0200 == 1, 1,
+                           ifelse(data_set$ph_a0500 == 0 & data_set$ph_b0200 == 0, 0, NA))
+  }
 
   data_set$ph_a1001 <- NA
   data_set$ph_a1002 <- NA
