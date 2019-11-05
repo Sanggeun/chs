@@ -48,7 +48,7 @@ chs_c_rate <- function(data, by_var = "sex" , de_var = "sm_a0100", cluster = "JI
 
   #n < 50 : Don't analyze(low reliability)
 
-  if (NROW(data) >= 50) {
+  if (NROW(data) >= 50 & sum(data[[de_var]] == 1) >= 1) {
 
     if (var_cat == 1) {
 
