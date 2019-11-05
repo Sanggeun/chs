@@ -48,11 +48,8 @@ chs_c_rate <- function(data, by_var = "sex" , de_var = "sm_a0100", cluster = "JI
 
   #n < 50 : Don't analyze(low reliability)
 
-<<<<<<< HEAD
-  if (NROW(data) >= 50 ) {
-=======
+
   if (NROW(data) >= 50 & length(unique(data[[de_var]](!is.na(data[[de_var]])))) >= 2 ) {
->>>>>>> d87d2682b2616d5768621d84cb538384fad895b7
 
     if (var_cat == 1) {
 
