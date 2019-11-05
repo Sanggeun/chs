@@ -11,7 +11,7 @@
 #'   data <- code_district_daegu(data, var_dong = "dong_p", var_district = "district")
 #' @export
 
-# 대구(2011-2017)
+# 대구(2011-2018)
 code_district_daegu <- function(data_set, var_dong = "dong_p", var_district = "district") {
 
   data_set[[var_district]] <- ifelse(data_set[[var_dong]] %in% c("동인동", "삼덕동","성내1동","성내2동","성내3동","대신동", "남산1동","남산2동", "남산3동", "남산4동", "대봉1동", "대봉2동"), "중구",
@@ -35,8 +35,8 @@ code_district_daegu <- function(data_set, var_dong = "dong_p", var_district = "d
                                                                                                                                                             ifelse(data_set[[var_dong]] %in% c("용산2동","이곡1동","이곡2동","신당동","장기동"), "성서권",
                                                                                                                                                                    ifelse(data_set[[var_dong]] %in% c("월성1동","월성2동","진천동", "상인1동","상인2동", "상인3동", "도원동", "송현1동", "송현2동"), "상인권",
                                                                                                                                                                           ifelse(data_set[[var_dong]] %in% c("다사읍", "하빈면"), "북부권",
-                                                                                                                                                                                 ifelse(data_set[[var_dong]] %in% c("화원읍", "옥포면", "가창면"), "중부권",
-                                                                                                                                                                                        ifelse(data_set[[var_dong]] %in% c("논공읍","현풍면", "유가면", "구지면"),"남부권", NA)))))))))))))))))))))))
+                                                                                                                                                                                 ifelse(data_set[[var_dong]] %in% c("화원읍", "옥포면", "가창면", "옥포읍"), "중부권",
+                                                                                                                                                                                        ifelse(data_set[[var_dong]] %in% c("논공읍","현풍면", "유가면", "구지면", "유가읍", "현풍읍"),"남부권", NA)))))))))))))))))))))))
   return(data_set)
 }
 
