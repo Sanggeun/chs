@@ -53,7 +53,7 @@ chs_c_rate <- function(data, by_var = "sex" , de_var = "sm_a0100", cluster = "JI
 
     if (var_cat == 1) {
 
-      a <- svymean(~factor(target), chs_design_1, target==1, se=T, na.rm=T, deff=T, ci=T, keep.vars=T)
+      a <- svymean(~factor(target), chs_design_1, target=1, se=T, na.rm=T, deff=T, ci=T, keep.vars=T)
       b <- margin.table(table(data[[de_var]]))
       c <- table(data[[de_var]])
 
