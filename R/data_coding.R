@@ -720,9 +720,10 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   # 중등도 이상 신체활동 실천율 3
 
   if (year %in% c(2011:2017, 2019)) {
-    data_set$ph_a0500_3 <- ifelse(data_set$ph_a0500 == 1 | data_set$ph_b0200 == 1, 1,
-                           ifelse(data_set$ph_a0500 == 0 & data_set$ph_b0200 == 0, 0, NA))
-  }
+    data_set$ph_a0500_3 = ifelse(data_set$ph_a0500 == 1, 1,
+                          ifelse(data_set$age >= 65 & data_set$ph_b0200 == 1, 1,
+                          ifelse(data_set$ph_a0500 == 0 | data_set$ph_b0200 == 0, 0, NA)))
+      }
 
   data_set$ph_a1001 <- NA
   data_set$ph_a1002 <- NA
