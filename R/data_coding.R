@@ -241,7 +241,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$sm_d2606 <- NA
     }
 
-    if (year %in% 2015:2017) {
+    if (year %in% 2015:2019) {
       #### 분모정의
       data_set$sm_d2300 <- ifelse(data_set$sma_01z2 == 1,
                                   ifelse(data_set$sma_03z2 == 3, 1,
@@ -281,7 +281,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     ##### 14~ : 1. 본인을 제외한 가족 중 가정의 실내에서 일상적으로 담배를 피우는 분이 있습니까?
     #####     2. 최근 1주일동안 가정의 실내에서 다른 사람이 피우는 담배연기르 맡은 적이 있습니까?
 
-    if (year == 2012) {
+    if (year %in% c(2012)) {
       data_set$sm_e0100 <- NA
       data_set$sm_c0700 <- NA
     }
@@ -299,7 +299,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
                                   ifelse(data_set$smc_03z1 %in% c(2,3), 1,NA))
     }
 
-    if (year %in% 2014:2018) {
+    if (year %in% 2014:2019) {
       ##### 분모정의
       data_set$sm_e0100 <- ifelse(data_set$sma_01z2 == 2, 1,
                                   ifelse(data_set$sma_01z2 == 1,
@@ -326,7 +326,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$sm_e0200[data_set$smc_05z1 %in% c(1,2,3) & data_set$sma_01z2==1 & data_set$sma_03z2 == 3] <- 1
     }
 
-    if (year %in% 2014:2018){
+    if (year %in% 2014:2019){
       data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==2] <- 1
       data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==1 & data_set$sma_03z2 %in% c(1,2)] <- 0
       data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==1 & data_set$sma_03z2 == 3] <- 1
@@ -341,7 +341,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$sm_c0800[data_set$smc_05z1 %in% c(2,3)] <- 1
     }
 
-    if (year %in% 2014:2018) {
+    if (year %in% 2014:2019) {
       data_set$sm_c0800[data_set$smc_10z1 == 1] <- 1
       data_set$sm_c0800[data_set$smc_10z1 == 2] <- 0
       data_set$sm_c0800[data_set$smc_10z1 == 3] <- NA
@@ -353,16 +353,16 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
     #### 분자 정의
 
-    if (year == 2012) {
+    if (year %in% c(2012)) {
       data_set$sm_c0500 <- NA
     }
-    if (year %in% c(2011, 2013:2018)) {
+    if (year %in% c(2011, 2013:2019)) {
       data_set$sm_c0500 <- ifelse(data_set$smc_07z1 == 1, 1,
                                   ifelse(data_set$smc_07z1 == 2, 0, NA))
     }
 
     ### 11. 평생 전자담배 사용경험률
-    if (year %in% 2011:2013) {
+    if (year %in% c(2011:2013, 2019)) {
       data_set$sm_a0800 <- NA
     }
 
@@ -376,7 +376,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     #### 2014, 2015: 현재 전자담배를 피웁니까?
     #### 2016~ : 최근 1달간 전자담배를 피운 적이 있습니까?
 
-    if (year %in% 2011:2013) {
+    if (year %in% c(2011:2013, 2019)) {
       data_set$sm_a1000 <- NA
     }
 
@@ -395,7 +395,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     }
 
     ### 13. 연간 금연캠페인 경험률
-    if (year %in% c(2014, 2016)) {
+    if (year %in% c(2014, 2016, 2019)) {
       data_set$sm_d0900 <- NA
     }
 
@@ -414,7 +414,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$sm_d1100 <- NA
     }
 
-    if(year %in% c(2011, 2013, 2015, 2017)) {
+    if(year %in% c(2011, 2013, 2015, 2017, 2019)) {
       data_set$sm_d1100 <- ifelse(data_set$smd_08z1 %in% 1:2, 1,
                                   ifelse(data_set$smd_08z1 == 3, 0, NA))
     }
@@ -425,7 +425,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$sm_d1300 <- NA
     }
 
-    if (year %in% c(2011, 2013, 2015, 2017)) {
+    if (year %in% c(2011, 2013, 2015, 2017, 2019)) {
       #### 분모정의(현재흡연자 + 구체적 금연구역 인지자)
       data_set$sm_d1200 <- ifelse(data_set$sm_a0100 == 1 & data_set$smd_08z1 == 1, 1, 0)
 
@@ -514,7 +514,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$ph_a0500_3 <- NA
 
 
-  if (year %in% 2011:2017) {
+  if (year %in% c(2011:2017, 2019)) {
 
     #### 중등도이상 신체활동 실천율
     # 격렬한 신체활동
@@ -756,7 +756,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   data_set$ph_c0100 <- NA
 
-  if (year %in% c(2011, 2013, 2015, 2017)) {
+  if (year %in% c(2011, 2013, 2015, 2017, 2019)) {
     #### 유연성 운동 실천빈도
     data_set$ph_a1001 <- ifelse(data_set$pha_10z1 == 1, 1,
                                 ifelse(data_set$pha_10z1 %in% 2:6, 0, NA))
@@ -773,7 +773,9 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
     data_set$ph_a1009 <- ifelse(data_set$pha_10z1 %in% 2:6, 1,
                                 ifelse(data_set$pha_10z1 == 1, 0, NA))
+    }
 
+    if (year %in% c(2011, 2013, 2015, 2017)) {
     #### 근력운동 실천율
     data_set$ph_a1100 <- ifelse(data_set$pha_11z1 >= 3, 1,
                                 ifelse(data_set$pha_11z1 %in% 1:2, 0, NA))
@@ -996,7 +998,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   #### 혈압인지율
 
 
-  if(year %in% c(2011, 2013:2018)) {
+  if(year %in% c(2011, 2013:2019)) {
 
     data_set$il_a1900 <- ifelse(data_set$hya_19z1 == 1, 1,
                                 ifelse(data_set$hya_19z1 == 2, 0, NA))
@@ -1008,7 +1010,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   }
 
   #### 혈당인지율
-  if(year %in% c(2011, 2013:2018)) {
+  if(year %in% c(2011, 2013:2019)) {
 
     data_set$il_b1900 <- ifelse(data_set$dia_19z1 == 1, 1,
                                 ifelse(data_set$dia_19z1 == 2, 0, NA))
@@ -1093,7 +1095,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$sr_a0100 <- 9
   }
 
-  if (year %in% 2012:2018) {
+  if (year %in% 2012:2019) {
     data_set$sr_a0100 <- NA
     data_set$sr_a0100[data_set$sra_01z1==1] <- 1
     data_set$sr_a0100[data_set$sra_01z1==2] <- 0
@@ -1184,7 +1186,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$ct_a0100[data_set$hma_01z1 %in% c(2:4)] <- 1
     data_set$ct_a0100[data_set$hma_01z1 == 1] <- 0
 
-  } else if (year %in% 2014:2017) {
+  } else if (year %in% 2014:2019) {
     data_set$ct_a0100[data_set$hma_01z2 == 1] <- 1
     data_set$ct_a0100[data_set$hma_01z2 == 2] <- 0
 
@@ -1231,7 +1233,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   data_set$en_b0403 <- NA
   data_set$en_b0404 <- NA
 
-  if (year %in% c(2011, 2013, 2015, 2017)) {
+  if (year %in% c(2011, 2013, 2015, 2017, 2019)) {
   ### 사회물리적 환경
 
   #### 지역의 사회 물리적 환경에 대한 긍정적 태도율
