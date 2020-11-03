@@ -50,6 +50,13 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   if (year == 2018) {
     data_set$wt_house <- data_set$wt_h
   }
+  
+  if (year == 2019) {
+    data_set$CITY_CD <- data_set$city_cd
+    data_set$JIJUM_CD <- data_set$jijum_cd
+    data_set$BOGUN_CD <- data_set$bogun_cd
+    data_set$dong_p <- data_set$dong
+  }
 
   ### 나이
   data_set$age_10 <- NA
@@ -94,7 +101,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
                                                      ifelse(data_set$soa_06z1 %in% c("10","11","12","13"),"6.기타",NA))))))
   ### 소득
 
-  if (year %in% c(2011:2013, 2018)) {
+  if (year %in% c(2011:2013, 2018, 2019)) {
     income_t <- ifelse(data_set$fma_12z1 == 1 & data_set$fma_13z1 >= 0 & data_set$fma_13z1 <= 77776,
                        round(data_set$fma_13z1/12,1),
                        ifelse(data_set$fma_12z1 == 2 & data_set$fma_14z1 >= 0 & data_set$fma_14z1 <= 77776,
