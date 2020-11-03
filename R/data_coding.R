@@ -52,10 +52,11 @@ data_coding<- function(data_set, year, smoking = TRUE) {
   }
   
   if (year == 2019) {
-    data_set$CITY_CD <- data_set$city_cd
-    data_set$JIJUM_CD <- data_set$jijum_cd
-    data_set$BOGUN_CD <- data_set$bogun_cd
-    data_set$dong_p <- data_set$dong
+    data_set$dong_p <- data_set$DONG_P
+    data_set$dong_type <- data_set$DONG_TYPE
+    data_set$house_type <- data_set$HOUSE_TYPE
+    data_set$wt_house <- data_set$wt_h
+    data_set$wt <- data_set$wt_p
   }
 
   ### 나이
