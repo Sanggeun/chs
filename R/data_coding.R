@@ -57,6 +57,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$house_type <- data_set$HOUSE_TYPE
     data_set$wt_house <- data_set$wt_h
     data_set$wt <- data_set$wt_p
+    data_set$CITY_CD <- "C"
   }
 
   ### 나이
