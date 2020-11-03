@@ -170,68 +170,86 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   ##  흡연
   if (smoking == TRUE) {
-
+    
     ###1. 현재 흡연율
-
+    
     data_set$sm_a0100 <- NA
     data_set$sm_a0100[data_set$sma_03z2==8] <- NA
     data_set$sm_a0100[data_set$sma_03z2 %in% c(1,2)] <- 1 # current smoker
     data_set$sm_a0100[data_set$sma_03z2 == 3] <- 0
     data_set$sm_a0100[data_set$sma_01z2 == 2] <- 0
-
+    
     ###2. 평생 흡연율
-
-    data_set$sm_a0200 <- ifelse(data_set$sma_01z2 == 1, 1,
+    
+    if (year %in% 2011:2018) {
+      data_set$sm_a0200 <- ifelse(data_set$sma_01z2 == 1, 1,
                                 ifelse(data_set$sma_01z2 == 2, 0, NA))
-
+    } else if (year == 2019) {
+      data_set$sm_a0200 <- ifelse(data_set$sma_01z1 == 1, 1,
+                                ifelse(data_set$sma_01z1 == 2, 0, NA))
+    }
+    
     ### 3. 흡연시작연령
-    data_set$sm_a0300 <- ifelse(data_set$sma_01z2 == 1 &
+    if (year %in% 2011:2018) {
+      data_set$sm_a0300 <- ifelse(data_set$sma_01z2 == 1 &
                                   (data_set$sma_02z1>=0 & data_set$sma_02z1<=110) &
                                   (data_set$sma_02z1>=0 & data_set$sma_02z1<=data_set$age),
                                 data_set$sma_02z1, NA)
-
+    } else if (year == 2019) {
+      data_set$sm_a0300 <- ifelse(data_set$sma_01z1 == 1 &
+                                  (data_set$sma_02z1>=0 & data_set$sma_02z1<=110) &
+                                  (data_set$sma_02z1>=0 & data_set$sma_02z1<=data_set$age),
+                                data_set$sma_02z1, NA)
+    }
     ### 4. 매일 흡연자의 하루 평균 흡연량
-
+    
     #### 분모정의(매일 흡연자)
-    data_set$sm_a0400 <- ifelse(data_set$sma_01z2 == 1,
+    if (year %in% 2011:2018) {
+      data_set$sm_a0400 <- ifelse(data_set$sma_01z2 == 1,
                                 ifelse(data_set$sma_03z2 == 1, 1,
                                        ifelse(data_set$sma_03z2 %in% c(2,3),0,NA)),
                                 ifelse(data_set$sma_01z2 == 2, 0, NA))
+    } else if (year == 2019) {
+      data_set$sm_a0400 <- ifelse(data_set$sma_01z1 == 1,
+                                ifelse(data_set$sma_03z2 == 1, 1,
+                                       ifelse(data_set$sma_03z2 %in% c(2,3),0,NA)),
+                                ifelse(data_set$sma_01z1 == 2, 0, NA))
+    }
     #### 분자정의(흡연량)
     data_set$sm_b0100 <- ifelse(data_set$smb_01z1 >= 1 & data_set$smb_01z1 <= 776,
-                                data_set$smb_01z1, NA)
-
+                              data_set$smb_01z1, NA)
+    
     ### 4-1. 매일 흡연자의 하루 평균 흡연량_10개비 미만
     data_set$sm_b0201 <- ifelse(data_set$smb_01z1 >= 1 & data_set$smb_01z1 <= 9, 1,
-                                ifelse(data_set$smb_01z1 >= 10 & data_set$smb_01z1 <= 776, 0, NA))
-
+                              ifelse(data_set$smb_01z1 >= 10 & data_set$smb_01z1 <= 776, 0, NA))
+    
     ### 4-2. 매일흡연자의 하루평균흡연량_10~19개비
     data_set$sm_b0202 <- ifelse(data_set$smb_01z1 >= 1 & data_set$smb_01z1 <= 9, 0,
-                                ifelse(data_set$smb_01z1 >= 10 & data_set$smb_01z1 <= 19, 1,
-                                       ifelse(data_set$smb_01z1 >= 20 & data_set$smb_01z1 <= 776, 0, NA)))
-
+                              ifelse(data_set$smb_01z1 >= 10 & data_set$smb_01z1 <= 19, 1,
+                                     ifelse(data_set$smb_01z1 >= 20 & data_set$smb_01z1 <= 776, 0, NA)))
+    
     ### 4-3. 매일흡연자의 하루평균흡연량_20~39개비
     data_set$sm_b0203 <- ifelse(data_set$smb_01z1 >= 1 & data_set$smb_01z1 <= 19, 0,
-                                ifelse(data_set$smb_01z1 >= 20 & data_set$smb_01z1 <= 39, 1,
-                                       ifelse(data_set$smb_01z1 >= 40 & data_set$smb_01z1 <= 776, 0, NA)))
-
+                              ifelse(data_set$smb_01z1 >= 20 & data_set$smb_01z1 <= 39, 1,
+                                     ifelse(data_set$smb_01z1 >= 40 & data_set$smb_01z1 <= 776, 0, NA)))
+    
     ### 4-4. 매일흡연자의 하루평균흡연량_40개비 이상
     data_set$sm_b0204 <- ifelse(data_set$smb_01z1 >= 1 & data_set$smb_01z1 <= 39, 0,
-                                ifelse(data_set$smb_01z1 >= 40 & data_set$smb_01z1 <= 776, 1, NA))
-
+                              ifelse(data_set$smb_01z1 >= 40 & data_set$smb_01z1 <= 776, 1, NA))
+    
     ### 5. 금연시도율
-
+    
     data_set$sm_d0600 <- NA
     data_set$sm_d0600[data_set$smd_02z2==1] <- 1
     data_set$sm_d0600[data_set$smd_02z2 %in% c(2,3)] <- 0
-
+    
     ### 6. 현재흡연자의 1개월 내 금연계획률
     data_set$sm_d0500 <- ifelse(data_set$smd_01z2 == 1, 1,
-                                ifelse(data_set$smd_01z2 %in% 2:4, 0, NA))
-
-
+                              ifelse(data_set$smd_01z2 %in% 2:4, 0, NA))
+    
+    
     ### 7. 과거흡연자의 금연기간
-
+    
     if (year %in% 2011:2014) {
       data_set$sm_d2300 <- NA
       data_set$sm_d2601 <- NA
@@ -241,201 +259,224 @@ data_coding<- function(data_set, year, smoking = TRUE) {
       data_set$sm_d2605 <- NA
       data_set$sm_d2606 <- NA
     }
-
+    
     if (year %in% 2015:2019) {
       #### 분모정의
-      data_set$sm_d2300 <- ifelse(data_set$sma_01z2 == 1,
+      if (year %in% 2015:2018) {
+        data_set$sm_d2300 <- ifelse(data_set$sma_01z2 == 1,
                                   ifelse(data_set$sma_03z2 == 3, 1,
                                          ifelse(data_set$sma_03z2 %in% c(1,2), 0,NA)),
                                   ifelse(data_set$sma_01z2 == 2, 0, NA))
-
+      } else if (year == 2019) {
+        data_set$sm_d2300 <- ifelse(data_set$sma_01z1 == 1,
+                                  ifelse(data_set$sma_03z2 == 3, 1,
+                                         ifelse(data_set$sma_03z2 %in% c(1,2), 0,NA)),
+                                  ifelse(data_set$sma_01z1 == 2, 0, NA))
+      }
+      
       #### 7-1. 과거흡연자의 금연기간 1년 미만
       data_set$sm_d2601 <- ifelse(data_set$smb_09z1 == 1, 1,
-                                  ifelse(data_set$smb_09z1 %in% 2:6, 0, NA))
-
+                                ifelse(data_set$smb_09z1 %in% 2:6, 0, NA))
+      
       #### 7-2. 과거흡연자의 금연기간_1년~5년 미만
       data_set$sm_d2602 <- ifelse(data_set$smb_09z1 == 2, 1,
-                                  ifelse(data_set$smb_09z1 %in% c(1,3:6), 0, NA))
-
+                                ifelse(data_set$smb_09z1 %in% c(1,3:6), 0, NA))
+      
       #### 7-3. 과거흡연자의 금연기간상_5년~10년 미만
       data_set$sm_d2603 <- ifelse(data_set$smb_09z1 == 3, 1,
-                                  ifelse(data_set$smb_09z1 %in% c(1,2,4:6), 0, NA))
-
+                                ifelse(data_set$smb_09z1 %in% c(1,2,4:6), 0, NA))
+      
       #### 7-4. 과거흡연자의 금연기간_10년~15년 미만
       data_set$sm_d2604 <- ifelse(data_set$smb_09z1 == 4, 1,
-                                  ifelse(data_set$smb_09z1 %in% c(1:3,5,6), 0, NA))
-
+                                ifelse(data_set$smb_09z1 %in% c(1:3,5,6), 0, NA))
+      
       #### 7-5. 과거흡연자의 금연기간_15년~20년 미만
       data_set$sm_d2605 <- ifelse(data_set$smb_09z1 == 5, 1,
-                                  ifelse(data_set$smb_09z1 %in% c(1:4,6), 0, NA))
-
+                                ifelse(data_set$smb_09z1 %in% c(1:4,6), 0, NA))
+      
       #### 7-6. 과거흡연자의 금연기간_20년 이상
       data_set$sm_d2606 <- ifelse(data_set$smb_09z1 == 6, 1,
-                                  ifelse(data_set$smb_09z1 %in% 1:5, 0, NA))
-
-
+                                ifelse(data_set$smb_09z1 %in% 1:5, 0, NA))
+      
+      
     }
-
+    
     ### 8. 현재 비흡연자의 가정실내 간접흡연노출률(11,13년도는 설문문항 차이있음)
-
+    
     ##### 11,13: 가정의 실내에서 다른 사람이 피우는 담배연기를 맡는 시간은 하루 몇 시간 정도입니까?
     ##### 14~ : 1. 본인을 제외한 가족 중 가정의 실내에서 일상적으로 담배를 피우는 분이 있습니까?
     #####     2. 최근 1주일동안 가정의 실내에서 다른 사람이 피우는 담배연기르 맡은 적이 있습니까?
-
+    
     if (year %in% c(2012)) {
       data_set$sm_e0100 <- NA
       data_set$sm_c0700 <- NA
     }
-
+    
     if (year %in% c(2011, 2013)) {
       ##### 분모정의
       data_set$sm_e0100 <- ifelse(data_set$sma_01z2 == 2, 1,
-                                  ifelse(data_set$sma_01z2 == 1,
-                                         ifelse(data_set$sma_03z2 %in% c(1,2), 0,
-                                                ifelse(data_set$sma_03z2 == 3, 1, NA)),
-                                         NA))
-
+                                ifelse(data_set$sma_01z2 == 1,
+                                       ifelse(data_set$sma_03z2 %in% c(1,2), 0,
+                                              ifelse(data_set$sma_03z2 == 3, 1, NA)),
+                                       NA))
+      
       #### 분자정의
       data_set$sm_c0700 <- ifelse(data_set$smc_03z1 ==1, 0,
-                                  ifelse(data_set$smc_03z1 %in% c(2,3), 1,NA))
+                                ifelse(data_set$smc_03z1 %in% c(2,3), 1,NA))
     }
-
+    
     if (year %in% 2014:2019) {
       ##### 분모정의
-      data_set$sm_e0100 <- ifelse(data_set$sma_01z2 == 2, 1,
+      if (year %in% 2014:2018) {
+        data_set$sm_e0100 <- ifelse(data_set$sma_01z2 == 2, 1,
                                   ifelse(data_set$sma_01z2 == 1,
                                          ifelse(data_set$sma_03z2 %in% c(1,2), 0,
                                                 ifelse(data_set$sma_03z2 == 3, 1, NA)),
                                          NA))
+        
+      } else if (year == 2019) {
+        data_set$sm_e0100 <- ifelse(data_set$sma_01z1 == 2, 1,
+                                  ifelse(data_set$sma_01z1 == 1,
+                                         ifelse(data_set$sma_03z2 %in% c(1,2), 0,
+                                                ifelse(data_set$sma_03z2 == 3, 1, NA)),
+                                         NA))
+      }  
       #### 분자정의
       data_set$sm_c0700 <- ifelse(data_set$smc_08z1 == 1,
-                                  ifelse(data_set$smc_09z1 == 1, 1,
-                                         ifelse(data_set$smc_09z1 == 2, 0, NA)),
-                                  ifelse(data_set$smc_08z1 == 2, 0, NA))
-
+                                ifelse(data_set$smc_09z1 == 1, 1,
+                                       ifelse(data_set$smc_09z1 == 2, 0, NA)),
+                                ifelse(data_set$smc_08z1 == 2, 0, NA))
+      
     }
-
+    
     ### 9. 현재 비흡연자의 직장실내간접흡연노출률
     # 분모: 일을 하고 있는 현재 비흡연자(평생 비흡연자, 과거 흡연자) sm_e0200==1
-
+    
     # 분모
     data_set$sm_e0200 <- NA
-
+    
     if (year %in% c(2011, 2013)) {
       data_set$sm_e0200[data_set$smc_05z1 %in% c(1,2,3) & data_set$sma_01z2==2] <- 1
       data_set$sm_e0200[data_set$smc_05z1 %in% c(1,2,3) & data_set$sma_01z2==1 & data_set$sma_03z2 %in% c(1,2)] <- 0
       data_set$sm_e0200[data_set$smc_05z1 %in% c(1,2,3) & data_set$sma_01z2==1 & data_set$sma_03z2 == 3] <- 1
     }
-
-    if (year %in% 2014:2019){
+    
+    if (year %in% 2014:2018){
       data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==2] <- 1
       data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==1 & data_set$sma_03z2 %in% c(1,2)] <- 0
       data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z2==1 & data_set$sma_03z2 == 3] <- 1
     }
+    
+    if (year == 2019) {
+      data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z1==2] <- 1
+      data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z1==1 & data_set$sma_03z2 %in% c(1,2)] <- 0
+      data_set$sm_e0200[data_set$smc_10z1 %in% c(1,2) & data_set$sma_01z1==1 & data_set$sma_03z2 == 3] <- 1
+    }
     data_set$sm_e0200[data_set$soa_06z1 %in% c(11,12,13)] <- NA
-
+    
     # 분자
     data_set$sm_c0800 <- NA
-
+    
     if (year %in% c(2011,2013)){
       data_set$sm_c0800[data_set$smc_05z1 == 1] <- 0
       data_set$sm_c0800[data_set$smc_05z1 %in% c(2,3)] <- 1
     }
-
+    
     if (year %in% 2014:2019) {
       data_set$sm_c0800[data_set$smc_10z1 == 1] <- 1
       data_set$sm_c0800[data_set$smc_10z1 == 2] <- 0
       data_set$sm_c0800[data_set$smc_10z1 == 3] <- NA
     }
     data_set$sm_c0800[data_set$soa_06z1 %in% c(11,12,13)] <- NA
-
-
+    
+    
     ### 10. 현재 비흡연자의 공공장소간접흡연노출률
-
+    
     #### 분자 정의
-
+    
     if (year %in% c(2012)) {
       data_set$sm_c0500 <- NA
     }
     if (year %in% c(2011, 2013:2019)) {
       data_set$sm_c0500 <- ifelse(data_set$smc_07z1 == 1, 1,
-                                  ifelse(data_set$smc_07z1 == 2, 0, NA))
+                                ifelse(data_set$smc_07z1 == 2, 0, NA))
     }
-
+    
     ### 11. 평생 전자담배 사용경험률
     if (year %in% c(2011:2013, 2019)) {
       data_set$sm_a0800 <- NA
     }
-
+    
     if (year %in% 2014:2018) {
       data_set$sm_a0800 <- ifelse(data_set$sma_08z1 == 1, 1,
-                                  ifelse(data_set$sma_08z1 == 2, 0, NA))
+                                ifelse(data_set$sma_08z1 == 2, 0, NA))
     }
-
+    
     ### 12. 현재 전자담배 사용경험률
-
+    
     #### 2014, 2015: 현재 전자담배를 피웁니까?
     #### 2016~ : 최근 1달간 전자담배를 피운 적이 있습니까?
-
+    
     if (year %in% c(2011:2013, 2019)) {
       data_set$sm_a1000 <- NA
     }
-
+    
     if (year %in% 2014:2015) {
       data_set$sm_a1000 <- ifelse(data_set$sma_08z1 == 1,
-                                  ifelse(data_set$sma_09z1 == 1, 1,
-                                         ifelse(data_set$sma_09z1 == 2, 0,NA)),
-                                  ifelse(data_set$sma_08z1 == 2, 0, NA))
+                                ifelse(data_set$sma_09z1 == 1, 1,
+                                       ifelse(data_set$sma_09z1 == 2, 0,NA)),
+                                ifelse(data_set$sma_08z1 == 2, 0, NA))
     }
-
+    
     if (year %in% 2016:2017) {
       data_set$sm_a1000 <- ifelse(data_set$sma_08z1 == 1,
-                                  ifelse(data_set$sma_11z1 == 1, 1,
-                                         ifelse(data_set$sma_11z1 == 2, 0,NA)),
-                                  ifelse(data_set$sma_08z1 == 2, 0, NA))
+                                ifelse(data_set$sma_11z1 == 1, 1,
+                                       ifelse(data_set$sma_11z1 == 2, 0,NA)),
+                                ifelse(data_set$sma_08z1 == 2, 0, NA))
     }
-
+    
     ### 13. 연간 금연캠페인 경험률
     if (year %in% c(2014, 2016, 2019)) {
       data_set$sm_d0900 <- NA
     }
-
+    
     if(year %in% c(2011:2013, 2015, 2017)) {
       data_set$sm_d0900 <- ifelse(data_set$smd_06z1 == 1, 1,
-                                  ifelse(data_set$smd_06z1 == 2, 0, NA))
+                                ifelse(data_set$smd_06z1 == 2, 0, NA))
     }
-
+    
     ### 14, 15 연간 금연교육 경험률, 현재 흡연자의 금연교육 경험률
-
+    
     data_set$sm_d1000 <- ifelse(data_set$smd_07z1 == 1, 1,
-                                ifelse(data_set$smd_07z1 == 2, 2, NA))
-
+                              ifelse(data_set$smd_07z1 == 2, 2, NA))
+    
     ### 16. 금연구역 인지율
     if(year %in% c(2012, 2014, 2016)) {
       data_set$sm_d1100 <- NA
     }
-
+    
     if(year %in% c(2011, 2013, 2015, 2017, 2019)) {
       data_set$sm_d1100 <- ifelse(data_set$smd_08z1 %in% 1:2, 1,
-                                  ifelse(data_set$smd_08z1 == 3, 0, NA))
+                                ifelse(data_set$smd_08z1 == 3, 0, NA))
     }
-
+    
     ### 17. 현재흡연자의 금연구역 내 흡연 경험률
     if(year %in% c(2012, 2014, 2016)) {
       data_set$sm_d1200 <- NA
       data_set$sm_d1300 <- NA
     }
-
+    
     if (year %in% c(2011, 2013, 2015, 2017, 2019)) {
       #### 분모정의(현재흡연자 + 구체적 금연구역 인지자)
       data_set$sm_d1200 <- ifelse(data_set$sm_a0100 == 1 & data_set$smd_08z1 == 1, 1, 0)
-
+      
       #### 분자정의
       data_set$sm_d1300 <- ifelse(data_set$smd_09z1 %in% 1:2, 1,
-                                  ifelse(data_set$smd_09z1 == 3, 0, NA))
+                                ifelse(data_set$smd_09z1 == 3, 0, NA))
     }
-
+    
   }
+  
 
   ### 음주
 
