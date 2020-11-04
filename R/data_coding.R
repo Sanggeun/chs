@@ -49,6 +49,7 @@ data_coding<- function(data_set, year, smoking = TRUE) {
 
   if (year == 2018) {
     data_set$wt_house <- data_set$wt_h
+    data_set$dong_p[data_set$dong_p == "유가읍"] <- "유가면"
   }
   
   if (year == 2019) {
