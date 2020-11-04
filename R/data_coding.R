@@ -58,6 +58,10 @@ data_coding<- function(data_set, year, smoking = TRUE) {
     data_set$wt_house <- data_set$wt_h
     data_set$wt <- data_set$wt_p
     data_set$CITY_CD <- "C"
+    
+    data_set$dong_p[data_set$dong_p == "다사읍서재출장소"] <- "다사읍"
+    data_set$dong_p[data_set$dong_p == "옥포읍"] <- "옥포면"
+    data_set$dong_p[data_set$dong_p == "현풍읍"] <- "현풍면"
   }
 
   ### 나이
