@@ -13,6 +13,9 @@ dataread_chs_raw(year, filename, data3 = FALSE)
 
 \item{data3}{TRUE to use third data sheet, FALSE to use only two data sheet.}
 }
+\value{
+
+}
 \description{
 dataread_chs_raw function will read raw data of community health survey.
 }

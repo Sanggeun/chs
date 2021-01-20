@@ -12,6 +12,9 @@ data_coding_inspec(data_set, year)
 
 \item{year}{the year investigated.}
 }
+\value{
+
+}
 \description{
 data_coding_inspec function will code health indicators using raw data of community health survey.
 }

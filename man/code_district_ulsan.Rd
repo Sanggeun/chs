@@ -5,8 +5,7 @@
 \alias{code_district_ulsan}
 \title{coding district varible}
 \usage{
-code_district_ulsan(data_set, var_dong = "dong_p",
-  var_district = "district")
+code_district_ulsan(data_set, var_dong = "dong_p", var_district = "district")
 }
 \arguments{
 \item{data_set}{community health survey raw data}
@@ -14,6 +13,9 @@ code_district_ulsan(data_set, var_dong = "dong_p",
 \item{var_dong}{dong variable of chs data}
 
 \item{var_district}{district variable (new)}
+}
+\value{
+
 }
 \description{
 code_district_ulsan functions will code district variable.

@@ -12,6 +12,9 @@ data_coding2(data, year)
 
 \item{data_set}{raw data of community health survey.}
 }
+\value{
+
+}
 \description{
 data_coding2 function will code health indicators using raw data of community health survey.
 }

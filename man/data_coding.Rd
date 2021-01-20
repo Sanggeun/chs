@@ -14,6 +14,9 @@ data_coding(data_set, year, smoking = TRUE)
 
 \item{smoking}{whether smoking section variables are coded}
 }
+\value{
+
+}
 \description{
 data_coding function will code health indicators using raw data of community health survey.
 }
