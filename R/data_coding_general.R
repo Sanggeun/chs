@@ -76,13 +76,13 @@ data_coding_general <- function(data_set, year) {
   ### 소득
   
   if (year %in% c(2009:2013, 2018:2021)) {
-    if (year %in %c(2009:2013)) {
+    if (year %in% c(2009:2013)) {
       income_t <- ifelse(data_set$fma_12z1 == 1 & data_set$fma_20z1 >= 0 & data_set$fma_20z1 <= 77776,
                          round(data_set$fma_13z1/12,1),
                          ifelse(data_set$fma_12z1 == 2 & data_set$fma_20z1 >= 0 & data_set$fma_20z1 <= 77776,
                                 round(data_set$fma_20z1,1),NA))
     }
-    if (year %in %c(2018:2021)) {
+    if (year %in% c(2018:2021)) {
       income_t <- ifelse(data_set$fma_12z1 == 1 & data_set$fma_13z1 >= 0 & data_set$fma_13z1 <= 77776,
                          round(data_set$fma_13z1/12,1),
                          ifelse(data_set$fma_12z1 == 2 & data_set$fma_14z1 >= 0 & data_set$fma_14z1 <= 77776,
