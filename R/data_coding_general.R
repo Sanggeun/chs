@@ -137,7 +137,7 @@ data_coding_general <- function(data_set, year) {
   ### 세대
   #if (year %in% c(2011,2013)) {
    # data_set$fma_19z1 <- data_set$fma_19z2 # family type
-  }
+  #}
   if (year %in% 2009:2019) {
   data_set$generation <- ifelse(data_set$fma_19z1 %in% 1:7, "1세대",
                                 ifelse(data_set$fma_19z1 %in% 8:16, "2세대",
